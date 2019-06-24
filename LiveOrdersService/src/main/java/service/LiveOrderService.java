@@ -45,14 +45,14 @@ public class LiveOrderService {
                 .collect(groupingBy(o -> o.getPricePerKg()));
 
         // reduce BUY orders
-        groupedBUYOrders.keySet().forEach(o ->
-                groupedBUYOrders.get(o).stream()
+        groupedBUYOrders.values().forEach(o ->
+                        o.stream()
                         .reduce((a, b) -> Order.combine(a, b))
                         .ifPresent(buyOrders::add));
 
         // reduce SELL orders
-        groupedSELLOrders.keySet().forEach(o ->
-                groupedSELLOrders.get(o).stream()
+        groupedSELLOrders.values().forEach(o ->
+                        o.stream()
                         .reduce((a, b) -> Order.combine(a, b))
                         .ifPresent(sellOrders::add));
 
